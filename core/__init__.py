@@ -54,6 +54,10 @@ def SelectCoreParams(name):
     else:
         raise ValueError('Unknown chain %r' % name)
 
+def GetN():
+    return coreparams.N
+def GetK():
+    return coreparams.K
 
 class CEquihashHeader(Serializable): # TODO or make it ImmutableSerializable?
     """A Zcash Equihash solver block header - without solution"""
