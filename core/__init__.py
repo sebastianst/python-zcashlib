@@ -101,6 +101,11 @@ class CEquihashHeader(Serializable): # TODO or make it ImmutableSerializable?
     def calc_difficulty(nBits):
         return CBlockHeader.calc_difficulty(nBits)
 
+    def increment_nonce(k=1):
+        """increments nonce by k. Default k=1."""
+        object.__setattr__(self, 'nNonce',
+                IncrementNonce(self.nNonce, k))
+
     def __repr__(self):
         return "%s(%i, lx(%s), lx(%s), lx(%s), %s, 0x%08x, lx(%s))" % \
                 (self.__class__.__name__, self.nVersion, b2lx(self.hashPrevBlock),
@@ -170,3 +175,8 @@ def IsValidSolution(block_header, nonce=None, solution=None):
         return True
     except CheckProofOfWorkError:
         return False
+
+def IncrementNonce(nonce, k=1):
+    assert isinstance(nonce, bytes) and len(nonce) == 32, \
+            "Nonce must be a bytes array of length 32"
+    return uint256_to_str(uint256_from_str(nonce) + k)
