@@ -58,6 +58,8 @@ def GetN():
     return coreparams.N
 def GetK():
     return coreparams.K
+def GetSolutionSize():
+    return coreparams.SOL_SIZE
 
 class CEquihashHeader(Serializable): # TODO or make it ImmutableSerializable?
     """A Zcash Equihash solver block header - without solution"""
